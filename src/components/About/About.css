@@ -1,0 +1,201 @@
+.about {
+  position: relative;
+  padding: 140px 48px;
+  background: #050505;
+  overflow: hidden;
+}
+
+.about__ambient {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(220,20,60,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  animation: ambient-pulse 6s ease-in-out infinite;
+}
+
+@keyframes ambient-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50%       { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+.about__header {
+  max-width: 700px;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.about__desc {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.5);
+  font-family: 'Space Grotesk', sans-serif;
+  max-width: 560px;
+}
+
+.about__layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 80px;
+  align-items: start;
+}
+
+/* Timeline */
+.about__timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.about__timeline::before {
+  content: '';
+  position: absolute;
+  left: 70px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(220,20,60,0.3) 20%, rgba(220,20,60,0.3) 80%, transparent);
+}
+
+.timeline__item {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  position: relative;
+}
+
+.timeline__item:last-child { border-bottom: none; }
+
+.timeline__item::before {
+  content: '';
+  position: absolute;
+  left: 68px;
+  top: 36px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #dc143c;
+  box-shadow: 0 0 10px rgba(220,20,60,0.6);
+  z-index: 1;
+}
+
+.timeline__year {
+  min-width: 60px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #dc143c;
+  font-family: 'Space Grotesk', sans-serif;
+  padding-top: 4px;
+  flex-shrink: 0;
+}
+
+.timeline__content {
+  padding-left: 24px;
+}
+
+.timeline__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 8px;
+}
+
+.timeline__desc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.45);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Right panel */
+.about__portrait-panel {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(220,20,60,0.1);
+  transition: transform 0.4s ease;
+}
+.about__portrait-panel:hover { transform: scale(1.02); }
+
+.about__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: contrast(1.05) saturate(0.85);
+}
+
+.about__img-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(5,5,5,0.5) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(220,20,60,0.08) 0%, transparent 50%);
+}
+
+.about__img-border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(220,20,60,0.2);
+  pointer-events: none;
+}
+
+/* Traits */
+.about__traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.about__trait {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.04em;
+  transition: border-color 0.3s, color 0.3s;
+}
+.about__trait:hover {
+  border-color: rgba(220,20,60,0.4);
+  color: #fff;
+}
+
+.about__trait-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #dc143c;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .about { padding: 100px 32px; }
+  .about__layout { grid-template-columns: 1fr; gap: 60px; }
+  .about__portrait-panel { max-width: 320px; }
+}
+
+@media (max-width: 640px) {
+  .about { padding: 80px 20px; }
+  .about__timeline::before { left: 50px; }
+  .timeline__item::before { left: 48px; }
+}

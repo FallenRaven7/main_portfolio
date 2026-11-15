@@ -1,0 +1,183 @@
+/* ══════════════════════════════════════════════
+   CUSTOM CURSOR — Crimson Liquid Glass System
+   ══════════════════════════════════════════════ */
+
+/* Hide default cursor sitewide */
+*, *::before, *::after {
+  cursor: none !important;
+}
+
+/* ── Outer Ring ─────────────────────────────── */
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 44px; height: 44px;
+  border: 1.5px solid rgba(220, 20, 60, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  will-change: transform, opacity;
+  transition:
+    width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    border-color 0.35s ease,
+    background 0.35s ease,
+    backdrop-filter 0.35s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Liquid glass base */
+  background: rgba(220, 20, 60, 0.04);
+  backdrop-filter: blur(0px);
+  box-shadow:
+    0 0 20px rgba(220, 20, 60, 0.15),
+    inset 0 0 10px rgba(220, 20, 60, 0.05);
+}
+
+/* Pulsing glow ring */
+.cursor-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(220, 20, 60, 0.2);
+  animation: ring-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes ring-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50%       { transform: scale(1.15); opacity: 0; }
+}
+
+/* ── VIEW state ──────────────────────────────── */
+.cursor-ring--view {
+  width: 100px !important;
+  height: 100px !important;
+  border-color: rgba(220, 20, 60, 0.9);
+  background: rgba(220, 20, 60, 0.12);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 40px rgba(220, 20, 60, 0.4),
+    0 0 80px rgba(220, 20, 60, 0.2),
+    inset 0 0 20px rgba(220, 20, 60, 0.1);
+}
+
+/* ── EXPLORE state ───────────────────────────── */
+.cursor-ring--explore {
+  width: 80px !important;
+  height: 80px !important;
+  border-color: rgba(255, 50, 80, 0.8);
+  background: rgba(220, 20, 60, 0.08);
+  backdrop-filter: blur(4px);
+  box-shadow:
+    0 0 30px rgba(220, 20, 60, 0.35),
+    inset 0 0 15px rgba(220, 20, 60, 0.08);
+}
+
+/* ── MAGNETIC state ──────────────────────────── */
+.cursor-ring--magnetic {
+  width: 60px !important;
+  height: 60px !important;
+  border-color: rgba(255, 80, 100, 1);
+  background: rgba(220, 20, 60, 0.15);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 0 25px rgba(220, 20, 60, 0.5),
+    0 0 50px rgba(220, 20, 60, 0.25);
+  animation: magnetic-spin 1.5s linear infinite;
+}
+
+@keyframes magnetic-spin {
+  to { border-top-color: transparent; }
+}
+
+/* ── LINK state ──────────────────────────────── */
+.cursor-ring--link {
+  width: 56px !important;
+  height: 56px !important;
+  border-color: rgba(220, 20, 60, 0.85);
+  background: rgba(220, 20, 60, 0.1);
+  box-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
+}
+
+/* ── Click state ─────────────────────────────── */
+.cursor-ring--click {
+  width: 36px !important;
+  height: 36px !important;
+  background: rgba(220, 20, 60, 0.3);
+  border-color: rgba(255, 50, 60, 1);
+  box-shadow:
+    0 0 30px rgba(220, 20, 60, 0.7),
+    0 0 60px rgba(220, 20, 60, 0.4);
+}
+
+/* ── Cursor text label ───────────────────────── */
+.cursor-ring__text {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+  font-family: 'Space Grotesk', sans-serif;
+  text-shadow: 0 0 10px rgba(220, 20, 60, 0.8);
+}
+
+/* ── Inner Dot ───────────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: radial-gradient(circle, #fff 0%, #dc143c 60%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000000;
+  will-change: transform, opacity;
+  box-shadow:
+    0 0 6px rgba(220, 20, 60, 0.9),
+    0 0 12px rgba(220, 20, 60, 0.6),
+    0 0 24px rgba(220, 20, 60, 0.3);
+  transition: width 0.2s ease, height 0.2s ease;
+}
+
+.cursor-dot--click {
+  width: 4px !important;
+  height: 4px !important;
+  background: #fff;
+  box-shadow:
+    0 0 10px #fff,
+    0 0 20px rgba(220, 20, 60, 1),
+    0 0 40px rgba(220, 20, 60, 0.6);
+}
+
+/* ── Click Ripple ────────────────────────────── */
+.cursor-ripple {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0; height: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999998;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(220,20,60,0.4) 0%, transparent 70%);
+  animation: ripple-expand 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes ripple-expand {
+  0%   { width: 0; height: 0; opacity: 1; }
+  100% { width: 120px; height: 120px; opacity: 0; }
+}
+
+/* ── Particle Trail ──────────────────────────── */
+.cursor-particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999997;
+  transform-origin: center;
+  mix-blend-mode: screen;
+}
