@@ -4,8 +4,9 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: #050505;
+  background-color: var(--bg-primary);
   padding: 120px 48px 80px;
+  transition: background-color 0.4s ease;
 }
 
 /* ── Ambient glow ───────────────────────────── */
@@ -13,7 +14,7 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 70% 50%, rgba(220,20,60,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 70% 50%, var(--crimson-glow-subtle) 0%, transparent 70%),
     radial-gradient(ellipse 40% 40% at 20% 30%, rgba(220,20,60,0.06) 0%, transparent 60%),
     radial-gradient(ellipse 50% 80% at 85% 80%, rgba(100,0,20,0.08) 0%, transparent 60%);
   pointer-events: none;
@@ -31,7 +32,7 @@
   inset: -50%;
   width: 200%;
   height: 200%;
-  opacity: 0.03;
+  opacity: 0.035;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
   background-size: 200px 200px;
@@ -74,11 +75,11 @@
   align-items: center;
   gap: 12px;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-muted);
+  font-family: var(--font-main);
   overflow: hidden;
 }
 .hero__eyebrow span { display: inline-block; }
@@ -86,40 +87,44 @@
 .hero__title {
   font-size: clamp(3.5rem, 7vw, 7rem);
   font-weight: 900;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-main);
   line-height: 0.95;
   letter-spacing: -0.04em;
-  color: #fff;
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   gap: 4px;
   overflow: hidden;
+  cursor: pointer;
+  user-select: none;
 }
 
 .hero__title .word {
   display: block;
   position: relative;
-  -webkit-text-stroke: 0px transparent;
-  transition: -webkit-text-stroke 0.3s;
+  transition: transform 0.2s;
+}
+.hero__title:hover .word {
+  transform: translateX(4px);
 }
 .hero__title .word:nth-child(2) {
-  -webkit-text-stroke: 2px rgba(255,255,255,0.3);
+  -webkit-text-stroke: 2px var(--border-hover);
   color: transparent;
-  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.3) 100%);
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-muted) 100%);
   -webkit-background-clip: text;
   background-clip: text;
 }
 .hero__title .word:nth-child(3) {
-  color: #dc143c;
-  text-shadow: 0 0 60px rgba(220,20,60,0.4);
+  color: var(--crimson);
+  text-shadow: 0 0 60px var(--crimson-glow);
 }
 
 .hero__sub {
   font-size: clamp(0.95rem, 1.5vw, 1.1rem);
   line-height: 1.7;
-  color: rgba(255,255,255,0.5);
+  color: var(--text-secondary);
   max-width: 480px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-main);
 }
 
 /* ── CTAs ───────────────────────────────────── */
@@ -134,18 +139,18 @@
   position: relative;
   padding: 14px 32px;
   border-radius: 100px;
-  background: #dc143c;
+  background: var(--crimson);
   color: #fff;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-main);
   overflow: hidden;
   border: none;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 .btn-primary:hover {
-  box-shadow: 0 8px 40px rgba(220,20,60,0.5), 0 0 60px rgba(220,20,60,0.2);
+  box-shadow: 0 8px 40px var(--crimson-glow), 0 0 60px rgba(220,20,60,0.2);
 }
 
 .btn-primary__inner {
@@ -168,27 +173,27 @@
 .btn-secondary {
   padding: 14px 32px;
   border-radius: 100px;
-  border: 1.5px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.75);
+  border: 1.5px solid var(--border-subtle);
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 600;
-  font-family: 'Space Grotesk', sans-serif;
-  background: rgba(255,255,255,0.03);
+  font-family: var(--font-main);
+  background: var(--bg-card);
   transition: border-color 0.3s, color 0.3s, background 0.3s;
   backdrop-filter: blur(10px);
 }
 .btn-secondary:hover {
-  border-color: rgba(220,20,60,0.5);
-  color: #fff;
-  background: rgba(220,20,60,0.06);
+  border-color: var(--crimson);
+  color: var(--text-primary);
+  background: var(--crimson-glow-subtle);
 }
 
 /* ── Stats ──────────────────────────────────── */
 .hero__stats {
   display: flex;
   gap: 40px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .hero__stat {
@@ -200,17 +205,17 @@
 .hero__stat-num {
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 800;
-  font-family: 'Space Grotesk', sans-serif;
-  color: #dc143c;
+  font-family: var(--font-main);
+  color: var(--crimson);
   letter-spacing: -0.02em;
 }
 
 .hero__stat-label {
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.35);
+  color: var(--text-muted);
   text-transform: uppercase;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-main);
 }
 
 /* ── Portrait ───────────────────────────────── */
@@ -219,6 +224,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .hero__portrait-frame {
@@ -228,9 +234,8 @@
   border-radius: 24px;
   overflow: hidden;
   box-shadow:
-    0 40px 100px rgba(0,0,0,0.6),
-    0 0 0 1px rgba(220,20,60,0.15),
-    inset 0 0 60px rgba(0,0,0,0.3);
+    var(--shadow-card),
+    0 0 0 1px var(--border-active);
 }
 
 .hero__portrait-img {
@@ -238,7 +243,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  filter: contrast(1.05) saturate(0.9);
+  filter: contrast(1.05) saturate(0.95);
   transition: transform 0.6s ease;
 }
 .hero__portrait-wrap:hover .hero__portrait-img {
@@ -249,8 +254,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, transparent 50%, rgba(5,5,5,0.7) 100%),
-    linear-gradient(135deg, rgba(220,20,60,0.1) 0%, transparent 60%);
+    linear-gradient(to bottom, transparent 50%, rgba(5,5,5,0.6) 100%),
+    linear-gradient(135deg, rgba(220,20,60,0.12) 0%, transparent 60%);
   mix-blend-mode: multiply;
 }
 
@@ -258,29 +263,29 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  border: 1px solid rgba(220,20,60,0.25);
+  border: 1px solid var(--border-active);
   pointer-events: none;
 }
 
 /* Floating badge */
 .hero__badge {
   position: absolute;
-  bottom: -20px;
-  left: -20px;
+  bottom: -16px;
+  left: -16px;
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(10,10,10,0.9);
+  background: var(--bg-secondary);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(220,20,60,0.25);
+  border: 1px solid var(--border-active);
   border-radius: 100px;
   padding: 10px 20px;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(255,255,255,0.8);
-  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-main);
   letter-spacing: 0.04em;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  box-shadow: var(--shadow-card);
 }
 
 .hero__badge-dot {
@@ -300,12 +305,12 @@
 /* Decoration ring */
 .hero__portrait-ring {
   position: absolute;
-  top: -30px;
-  right: -30px;
+  top: -24px;
+  right: -24px;
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 1px solid rgba(220,20,60,0.2);
+  border: 1px solid var(--border-active);
   animation: ring-rotate 12s linear infinite;
 }
 .hero__portrait-ring::before {
@@ -315,9 +320,9 @@
   left: 50%;
   width: 6px;
   height: 6px;
-  background: #dc143c;
+  background: var(--crimson);
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(220,20,60,0.8);
+  box-shadow: 0 0 10px var(--crimson-glow);
   transform: translateX(-50%);
 }
 
@@ -340,7 +345,7 @@
 .hero__scroll-line {
   width: 1px;
   height: 60px;
-  background: linear-gradient(to bottom, rgba(220,20,60,0.8), transparent);
+  background: linear-gradient(to bottom, var(--crimson), transparent);
   animation: scroll-line 2s ease-in-out infinite;
 }
 
@@ -355,8 +360,8 @@
   font-size: 9px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-muted);
+  font-family: var(--font-main);
   writing-mode: vertical-lr;
   text-orientation: mixed;
 }

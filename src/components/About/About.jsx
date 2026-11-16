@@ -30,9 +30,13 @@ export default function About() {
         scrollTrigger: { trigger: '.about__timeline', start: 'top 75%', once: true },
       });
 
-      // Right panel
-      gsap.from('.about__portrait-panel', {
+      // Right panel — dual photo gallery
+      gsap.from('.about__photo-primary', {
         x: 60, opacity: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: '.about__right', start: 'top 75%', once: true },
+      });
+      gsap.from('.about__photo-secondary', {
+        x: 40, opacity: 0, duration: 0.9, delay: 0.18, ease: 'power3.out',
         scrollTrigger: { trigger: '.about__right', start: 'top 75%', once: true },
       });
 
@@ -81,10 +85,26 @@ export default function About() {
 
           {/* Right */}
           <div className="about__right">
-            <div className="about__portrait-panel" data-cursor="explore" data-cursor-text="ABOUT">
-              <img src="/portrait.webp" alt="About portrait" className="about__img" />
-              <div className="about__img-overlay" />
-              <div className="about__img-border" />
+            {/* Dual-photo cinematic gallery */}
+            <div className="about__photo-gallery" data-cursor="explore" data-cursor-text="ABOUT">
+              <div className="about__photo-primary">
+                <img src="/portrait.webp" alt="Portrait — metro" className="about__img" />
+                <div className="about__img-overlay" />
+                <div className="about__img-border" />
+                <div className="about__photo-label">
+                  <span className="about__photo-label-dot" />
+                  <span>In transit</span>
+                </div>
+              </div>
+              <div className="about__photo-secondary">
+                <img src="/portrait.jpg" alt="Portrait — focused" className="about__img" />
+                <div className="about__img-overlay" />
+                <div className="about__img-border" />
+                <div className="about__photo-label">
+                  <span className="about__photo-label-dot" />
+                  <span>In the zone</span>
+                </div>
+              </div>
             </div>
 
             <div className="about__traits">

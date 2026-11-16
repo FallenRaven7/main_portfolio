@@ -1,0 +1,113 @@
+/* ══════════════════════════════════════════════════
+   SCROLL PROGRESS INDICATOR
+   ══════════════════════════════════════════════════ */
+
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, #8b1a2e 0%, #dc143c 50%, #ff4060 100%);
+  z-index: 100000;
+  box-shadow: 0 0 12px rgba(220, 20, 60, 0.8), 0 0 24px rgba(220, 20, 60, 0.4);
+  pointer-events: none;
+  transition: width 0.1s linear;
+  will-change: width;
+}
+
+/* Floating Radial Progress Widget */
+.scroll-widget {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  opacity: 0;
+  transform: translateY(20px) scale(0.85);
+  pointer-events: none;
+  transition:
+    opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: var(--shadow-card);
+}
+
+.scroll-widget--visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.scroll-widget:hover {
+  border-color: var(--crimson);
+  box-shadow: 0 0 25px rgba(220, 20, 60, 0.35);
+  transform: translateY(-3px) scale(1.05);
+}
+
+.scroll-widget__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.scroll-widget__circle-bg {
+  fill: none;
+  stroke: var(--border-subtle);
+  stroke-width: 2.5;
+}
+
+.scroll-widget__circle-bar {
+  fill: none;
+  stroke: var(--crimson);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.15s linear;
+}
+
+.scroll-widget__text {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.scroll-widget__arrow {
+  position: absolute;
+  font-size: 14px;
+  color: var(--crimson);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.scroll-widget:hover .scroll-widget__text {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.scroll-widget:hover .scroll-widget__arrow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .scroll-widget {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+}

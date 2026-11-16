@@ -1,0 +1,376 @@
+/* ══════════════════════════════════════════════════
+   PROJECT DETAIL MODAL
+   ══════════════════════════════════════════════════ */
+
+.project-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100002;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: modal-fade 0.25s ease-out;
+  /* Ensure this is the reference for its own children */
+  isolation: isolate;
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.project-modal {
+  width: 100%;
+  max-width: 780px;
+  /* Use svh (small viewport height) where supported, fall back to dvh then vh */
+  max-height: calc(100svh - 48px);
+  max-height: calc(100dvh - 48px);
+  max-height: calc(100vh - 48px);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-active);
+  border-radius: 24px;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8), 0 0 50px var(--crimson-glow-subtle);
+  display: flex;
+  flex-direction: column;
+  /* overflow:hidden clips border-radius; body handles internal scroll */
+  overflow: hidden;
+  animation: modal-scale 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Never let the modal grow beyond its flex column children */
+  min-height: 0;
+}
+
+@keyframes modal-scale {
+  from { opacity: 0; transform: scale(0.96) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.project-modal__header {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+}
+
+.project-modal__category-tag {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-modal__id {
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--crimson);
+  letter-spacing: 0.1em;
+}
+
+.project-modal__cat {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.project-modal__close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.project-modal__close-btn:hover {
+  color: var(--crimson);
+  border-color: var(--crimson);
+  transform: rotate(90deg);
+}
+
+.project-modal__body {
+  padding: 32px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* flex: 1 + min-height: 0 is the critical combo that lets a flex child
+     shrink below its content size and actually scroll */
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  /* Thin crimson scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(220, 20, 60, 0.4) transparent;
+}
+.project-modal__body::-webkit-scrollbar        { width: 4px; }
+.project-modal__body::-webkit-scrollbar-track  { background: transparent; }
+.project-modal__body::-webkit-scrollbar-thumb  {
+  background: rgba(220, 20, 60, 0.4);
+  border-radius: 4px;
+}
+
+.project-modal__title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.project-modal__lead {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Abstract Mockup Visual */
+.project-modal__mockup {
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  background: #08080a;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.mockup-header {
+  height: 34px;
+  background: #101014;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+}
+
+.mockup-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mockup-url {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.4);
+  margin-left: 10px;
+}
+
+.mockup-canvas {
+  position: relative;
+  height: 200px;
+  background: radial-gradient(circle at 50% 50%, rgba(220, 20, 60, 0.15) 0%, #060608 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mockup-mesh {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(220, 20, 60, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 20, 60, 0.08) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.mockup-wireframe {
+  position: relative;
+  z-index: 1;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mockup-block {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.mockup-block--hero {
+  height: 60px;
+  border-color: rgba(220, 20, 60, 0.3);
+}
+
+.mockup-row {
+  display: flex;
+  gap: 10px;
+}
+
+.mockup-block--col {
+  flex: 1;
+  height: 45px;
+}
+
+.mockup-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  font-size: 9px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 4px 8px;
+  background: rgba(220, 20, 60, 0.2);
+  border: 1px solid var(--crimson);
+  border-radius: 4px;
+  color: #fff;
+}
+
+/* Sections */
+.project-modal__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-modal__section-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--crimson);
+  font-family: var(--font-mono);
+}
+
+.project-modal__text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.project-modal__features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-modal__feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.feature-bullet {
+  color: var(--crimson);
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.project-modal__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-modal__tech-tag {
+  padding: 6px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+/* Actions */
+.project-modal__actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.modal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.modal-btn--primary {
+  background: var(--crimson);
+  color: #fff;
+  box-shadow: 0 8px 30px rgba(220, 20, 60, 0.4);
+}
+
+.modal-btn--primary:hover {
+  box-shadow: 0 10px 40px rgba(220, 20, 60, 0.7);
+  transform: translateY(-2px);
+}
+
+.modal-btn--secondary {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.modal-btn--secondary:hover {
+  border-color: var(--crimson);
+  color: var(--crimson);
+  transform: translateY(-2px);
+}
+
+.modal-btn--disabled {
+  background: var(--bg-card);
+  border: 1px dashed var(--border-subtle);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.modal-btn__arrow {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .project-modal {
+    max-width: 100%;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-modal-backdrop {
+    padding: 12px;
+    align-items: flex-end;  /* sheet-style on mobile: slides up from bottom */
+  }
+  .project-modal {
+    max-height: calc(100svh - 24px);
+    max-height: calc(100dvh - 24px);
+    max-height: calc(100vh - 24px);
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+  }
+  .project-modal__body {
+    padding: 20px;
+  }
+  .project-modal__header {
+    padding: 16px 20px;
+  }
+}

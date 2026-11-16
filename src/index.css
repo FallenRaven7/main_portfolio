@@ -1,8 +1,9 @@
 /* ══════════════════════════════════════════════════
    GLOBAL STYLES — Black × Crimson Red × Cinematic White
+   Dual Theme Architecture: Deep Black / Off-White Charcoal
    ══════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* ── Reset & Base ──────────────────────────────── */
 *, *::before, *::after {
@@ -18,57 +19,17 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background: #050505;
-  color: #ffffff;
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-
-/* Selection */
-::selection {
-  background: rgba(220, 20, 60, 0.3);
-  color: #fff;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(220, 20, 60, 0.4);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(220, 20, 60, 0.7);
-}
-
-button {
-  cursor: none;
-  font-family: inherit;
-}
-
-a { color: inherit; }
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-/* ── Design Tokens ─────────────────────────────── */
+/* ── Theme Tokens ─────────────────────────────── */
 :root {
+  /* Crimson Signature Identity (Preserved across all themes) */
   --crimson: #dc143c;
   --crimson-dark: #8b1a2e;
   --crimson-light: #ff4060;
-  --black: #050505;
-  --black-mid: #0a0a0a;
-  --white: #ffffff;
-  --white-dim: rgba(255, 255, 255, 0.5);
-  --white-faint: rgba(255, 255, 255, 0.07);
+  --crimson-glow: rgba(220, 20, 60, 0.45);
+  --crimson-glow-subtle: rgba(220, 20, 60, 0.15);
+
+  --font-main: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 
   --radius-sm: 8px;
   --radius-md: 16px;
@@ -80,15 +41,107 @@ img {
   --transition-slow: 0.7s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* ── Utility Classes ───────────────────────────── */
+/* Dark Theme (Default) */
+:root,
+[data-theme="dark"] {
+  --bg-primary: #050505;
+  --bg-secondary: #0a0a0c;
+  --bg-tertiary: #111216;
+  --bg-card: rgba(255, 255, 255, 0.025);
+  --bg-card-hover: rgba(255, 255, 255, 0.05);
+  --bg-glass: rgba(10, 10, 12, 0.75);
+
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-muted: rgba(255, 255, 255, 0.38);
+  --text-contrast: #050505;
+
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-active: rgba(220, 20, 60, 0.4);
+  --border-hover: rgba(255, 255, 255, 0.15);
+
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 35px rgba(220, 20, 60, 0.25);
+  --ambient-opacity: 1;
+}
+
+/* Light Theme (Sophisticated Off-White × Charcoal × Crimson) */
+[data-theme="light"] {
+  --bg-primary: #f5f6f9;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #ebeef3;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(245, 246, 249, 0.85);
+
+  --text-primary: #121316;
+  --text-secondary: rgba(18, 19, 22, 0.72);
+  --text-muted: rgba(18, 19, 22, 0.48);
+  --text-contrast: #ffffff;
+
+  --border-subtle: rgba(0, 0, 0, 0.09);
+  --border-active: rgba(220, 20, 60, 0.45);
+  --border-hover: rgba(0, 0, 0, 0.2);
+
+  --shadow-card: 0 15px 45px rgba(18, 19, 22, 0.07);
+  --shadow-glow: 0 0 25px rgba(220, 20, 60, 0.12);
+  --ambient-opacity: 0.35;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  line-height: 1.6;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Selection */
+::selection {
+  background: rgba(220, 20, 60, 0.35);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(220, 20, 60, 0.4);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(220, 20, 60, 0.75);
+}
+
+button {
+  cursor: none;
+  font-family: inherit;
+}
+
+a { 
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ── Typography & Utility Classes ───────────────── */
 .text-crimson {
-  color: #dc143c;
+  color: var(--crimson);
 }
 
 .text-stroke {
-  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.4);
+  -webkit-text-stroke: 2px var(--border-hover);
   color: transparent;
-  background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.1));
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-muted) 100%);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -98,11 +151,11 @@ img {
   align-items: center;
   gap: 12px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: #dc143c;
-  font-family: 'Space Grotesk', sans-serif;
+  color: var(--crimson);
+  font-family: var(--font-main);
 }
 
 .section-label::before {
@@ -110,16 +163,16 @@ img {
   display: inline-block;
   width: 24px;
   height: 1px;
-  background: #dc143c;
+  background: var(--crimson);
 }
 
 .section-heading {
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 900;
-  font-family: 'Space Grotesk', sans-serif;
-  line-height: 1.0;
+  font-family: var(--font-main);
+  line-height: 1.05;
   letter-spacing: -0.03em;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .section-container {
@@ -127,4 +180,30 @@ img {
   margin: 0 auto;
   position: relative;
   z-index: 2;
+}
+
+/* Section Ambient Light wrapper support */
+.hero, .about, .projects, .skills, .contact, .footer {
+  background-color: var(--bg-primary);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Ambient glow adapt */
+.hero__ambient, .about__ambient, .contact__glow {
+  opacity: var(--ambient-opacity);
+  transition: opacity 0.4s ease;
+}
+
+/* Project cards adapt */
+.project-card {
+  background: var(--bg-card) !important;
+  border-color: var(--border-subtle) !important;
+  color: var(--text-primary);
+}
+
+/* Responsive Container */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
 }
